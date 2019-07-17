@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->group(function () {
+    Route::get('/', 'Dashboard')->name('dashboard');
+    Route::resource('/blog', 'BlogController');
+});
