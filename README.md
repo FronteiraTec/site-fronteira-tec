@@ -22,7 +22,13 @@ Define a chave de criptografia:
 php artisan key:generate
 ```
 
+Instale a dependência do front-end utilizando [npm](https://nodejs.org/):
+```
+npm install
+```
+
 Inicie a aplicação:
 ```
 php artisan serve
+npm run development
 ```
