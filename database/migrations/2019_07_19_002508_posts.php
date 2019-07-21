@@ -14,7 +14,7 @@ class Posts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->foreign('dept_id')
+            $table->foreign('department_id')
             ->references('id')->on('departments')
             ->onDelete('cascade');
         });
@@ -28,7 +28,7 @@ class Posts extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign('posts_dept_id_foreign');
+            $table->dropForeign('posts_department_id_foreign');
         });
     }
 }

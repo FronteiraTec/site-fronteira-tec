@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('short_description');
             $table->text("content_text");
             $table->string('img');
-            $table->unsignedBigInteger('dept_id');        
+            $table->unsignedBigInteger('department_id');        
         });
     }
 
