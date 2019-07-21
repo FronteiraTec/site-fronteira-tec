@@ -19,7 +19,6 @@ class CreateDepartmentsTable extends Migration
             $table->string('name_department');
             $table->text("description_department");
             $table->string('img');
-            $table->engine = 'InnoDB';
         });
     }
 

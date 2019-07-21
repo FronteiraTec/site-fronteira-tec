@@ -23,9 +23,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('img');
             $table->boolean('admin');
-
-
-            $table->engine = 'InnoDB';
         });
     }
 

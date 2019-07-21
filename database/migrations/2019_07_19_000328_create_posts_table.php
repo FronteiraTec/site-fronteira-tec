@@ -19,11 +19,8 @@ class CreatePostsTable extends Migration
             $table->string('name_post');
             $table->string('short_description');
             $table->text("content_text");
-            $table->unsignedBigInteger('category_id');
             $table->string('img_post');
-            $table->unsignedBigInteger('depto_id');            
-            $table->unsignedBigInteger('creator_id');
-            $table->engine = 'InnoDB';
+            $table->unsignedBigInteger('depto_id');        
         });
     }
 
