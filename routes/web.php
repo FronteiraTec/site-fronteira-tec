@@ -21,4 +21,5 @@ Route::prefix('admin')
     ->group(function () {
     Route::get('/', 'Dashboard')->name('dashboard');
     Route::resource('/blog', 'BlogController');
+    Route::get('/create', 'BlogController@create');
 });

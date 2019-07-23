@@ -2,6 +2,13 @@
 
 @section('content')
 
-<h1>Blog</h1>
+<main class="container">
+
+    <p class='mt-4 lead'>
+        Dashboard content
+    </p>
+    <a class="btn btn-primary" href="{{ url('/create') }}">Novo Post</a>
+
+</main>
 
 @endsection

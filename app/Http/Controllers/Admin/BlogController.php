@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blog.create');
     }
 
     /**
@@ -35,7 +36,10 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
     }
 
     /**
