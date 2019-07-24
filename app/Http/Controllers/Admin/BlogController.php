@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('admin.blog.index');
+        return view('admin.blog.index', ['posts' => Post::all()]);
     }
 
     /**
@@ -37,9 +37,13 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $post = Post::create([
-            'title' => $request->title,
-            'description' => $request->description
+            'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
+            'content_text' => '',
+            'img' => '',
+            'department_id' => 1
         ]);
+        return redirect()->route('admin.dashboard');
     }
 
     /**
