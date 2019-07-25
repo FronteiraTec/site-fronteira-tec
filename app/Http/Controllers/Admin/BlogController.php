@@ -25,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create');
+        return view('admin.blog.create', ['message' => '']);
     }
 
     /**
@@ -36,14 +36,21 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $post = Post::create([
-            'name' => $request->input('name'),
-            'short_description' => $request->input('short_description'),
-            'content_text' => '',
-            'img' => '',
-            'department_id' => 1
-        ]);
-        return redirect()->route('admin.dashboard');
+        if ($this->validadeForm($request))
+        {
+            $post = Post::create([
+                'name' => $request->input('name'),
+                'short_description' => $request->input('short_description'),
+                'content_text' => '',
+                'img' => '',
+                'department_id' => 1
+            ]);
+            return redirect()->route('admin.dashboard');
+        }
+        else
+        {
+            return view('admin.blog.create', ['message' => 'Campos não preenchidos!']);
+        }
     }
 
     /**
@@ -65,7 +72,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.blog.edit', ['post' => Post::find($id), 'message' => '']);
     }
 
     /**
@@ -77,7 +84,24 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $post = Post::find($id); 
+
+        if ($this->validadeForm($request))
+        {
+            $post->name = $request->input('name');
+            $post->short_description = $request->input('short_description');
+            $post->content_text = '';
+            $post->img = '';
+            $post->department_id = 1;
+            $post->save();
+
+            return redirect()->route('admin.blog.index');
+        }
+        else
+        {
+            return view('admin.blog.edit', ['post' => $post, 'message' => 'Campos não preenchidos!']);
+        }
     }
 
     /**
@@ -88,6 +112,14 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('admin.blog.index');
+    }
+
+    // TODO: validade other fields 
+    private function validadeForm($request) : bool
+    {
+        return isset($request->name) && isset($request->short_description);
     }
 }

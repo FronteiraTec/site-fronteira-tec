@@ -11,7 +11,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$post->name}}</h5>
                             <p class="card-text">{{$post->short_description}}</p>
-                            <span class="badge badge-pill badge-light">{{$post->created_at->format('d/m/Y')}}</span>
+                            <span class="badge badge-pill badge-light">Data da Criação: {{$post->created_at->format('d/m/Y')}}</span>
+                        </div>
+                        <div class='card-body pt-0'>
+                            <a class="btn btn-sm btn-outline-info" href="{{ route('admin.blog.edit', $post) }}">Atualizar</a>
+                            <form action="{{ route('admin.blog.destroy', $post) }} " method="POST" class='d-inline'>
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
+                            </form>
                         </div>
                     </div>
                 </div>
