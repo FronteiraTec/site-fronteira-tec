@@ -13,15 +13,8 @@ class AddDeleteAtField extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id')->unique();
-            $table->timestamps();
-            $table->string('name');
-            $table->string('short_description');
-            $table->string('content_text');
-            $table->string('img');
-            $table->unsignedBigInteger('department_id'); 
-            $table->date('deleted_at')->nullable();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 

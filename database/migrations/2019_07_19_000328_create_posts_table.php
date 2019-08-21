@@ -18,10 +18,9 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('short_description');
-            $table->string('content_text');
+            $table->text('content_text');
             $table->string('img');
-            $table->unsignedBigInteger('department_id'); 
-            $table->date('delete_at')->nullable();
+            $table->unsignedBigInteger('department_id');
         });
     }
 
