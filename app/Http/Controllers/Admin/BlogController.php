@@ -84,7 +84,6 @@ class BlogController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //dd($post->id);
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -93,10 +92,6 @@ class BlogController extends Controller
         
         $post->name = $request->name;
         $post->short_description = $request->short_description;
-        $post->content_text = '';
-        $post->img = '';
-        $post->department_id = 1;
-        $post->id = $request->id;
 
         $post->save();
 
