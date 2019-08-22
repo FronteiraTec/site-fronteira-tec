@@ -25,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create', ['message' => '']);
+        return view('admin.blog.create');
     }
 
     /**
@@ -36,21 +36,20 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->validadeForm($request))
-        {
-            $post = Post::create([
-                'name' => $request->input('name'),
-                'short_description' => $request->input('short_description'),
-                'content_text' => '',
-                'img' => '',
-                'department_id' => 1
-            ]);
-            return redirect()->route('admin.dashboard');
-        }
-        else
-        {
-            return view('admin.blog.create', ['message' => 'Campos não preenchidos!']);
-        }
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'short_description' => 'required',
+        ]);
+
+        $post = Post::create([
+            'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
+            'content_text' => '',
+            'img' => '',
+            'department_id' => 1
+        ]);
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -72,7 +71,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.blog.edit', ['post' => Post::find($id), 'message' => '']);
+        $post = Post::find($id);
+        return view('admin.blog.edit', ['post' => $post]);
     }
 
     /**
@@ -82,26 +82,20 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
 
-        $post = Post::find($id); 
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'short_description' => 'required',
+        ]);
+        
+        $post->name = $request->name;
+        $post->short_description = $request->short_description;
 
-        if ($this->validadeForm($request))
-        {
-            $post->name = $request->input('name');
-            $post->short_description = $request->input('short_description');
-            $post->content_text = '';
-            $post->img = '';
-            $post->department_id = 1;
-            $post->save();
+        $post->save();
 
-            return redirect()->route('admin.blog.index');
-        }
-        else
-        {
-            return view('admin.blog.edit', ['post' => $post, 'message' => 'Campos não preenchidos!']);
-        }
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -117,9 +111,4 @@ class BlogController extends Controller
         return redirect()->route('admin.blog.index');
     }
 
-    // TODO: validade other fields 
-    private function validadeForm($request) : bool
-    {
-        return isset($request->name) && isset($request->short_description);
-    }
 }
