@@ -15,10 +15,10 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
-            $table->timestamps();
             $table->string('name');
-            $table->text("description");
-            $table->string('img');
+            $table->text('description')->nullable();
+            $table->string('img')->nullable();
+            $table->timestamps();
         });
     }
 
