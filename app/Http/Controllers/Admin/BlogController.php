@@ -40,13 +40,10 @@ class BlogController extends Controller
             'name' => 'required',
             'short_description' => 'required',
         ]);
-
+            
         $post = Post::create([
-            'name' => $request->input('name'),
-            'short_description' => $request->input('short_description'),
-            'content_text' => '',
-            'img' => '',
-            'department_id' => 1
+            'name' => $request->input('name'), 
+            'short_description' => $request->input('short_description')
         ]);
 
         return redirect()->route('admin.blog.index');
