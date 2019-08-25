@@ -19,6 +19,6 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->name('admin.')
     ->group(function () {
-    Route::get('/', 'Dashboard')->name('dashboard');
-    Route::resource('/blog', 'BlogController');
+        Route::get('/', 'Dashboard')->name('dashboard');
+        Route::resource('/blog', 'BlogController');
 });
