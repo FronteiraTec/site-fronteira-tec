@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('admin.blog.index');
+        return view('admin.blog.index', ['posts' => Post::all()]);
     }
 
     /**
@@ -24,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blog.create');
     }
 
     /**
@@ -35,7 +36,20 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'short_description' => 'required',
+        ]);
+
+        $post = Post::create([
+            'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
+            'content_text' => '',
+            'img' => '',
+            'department_id' => 1
+        ]);
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -57,7 +71,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('admin.blog.edit', ['post' => $post]);
     }
 
     /**
@@ -67,9 +82,20 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'short_description' => 'required',
+        ]);
+        
+        $post->name = $request->name;
+        $post->short_description = $request->short_description;
+
+        $post->save();
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -80,6 +106,9 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('admin.blog.index');
     }
+
 }

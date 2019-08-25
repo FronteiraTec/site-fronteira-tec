@@ -20,5 +20,6 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
     Route::get('/', 'Dashboard')->name('dashboard');
+    Route::put('/blog/{post}', 'BlogController@update');
     Route::resource('/blog', 'BlogController');
 });
